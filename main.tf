@@ -1,15 +1,3 @@
-locals {
-  # Common tags to be assigned to all resources
-  common_tags = {
-    purpose   = "Terraform Data platform accounts"
-    owner     = "Upendranath Uppala"
-    terraform = "true"
-  }
-}
-
-locals {
-  account_id = data.aws_iam_account_alias.current.account_alias
-}
 
 data "aws_iam_account_alias" "current" {}
 
