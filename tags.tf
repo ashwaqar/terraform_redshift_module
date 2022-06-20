@@ -1,8 +1,7 @@
-locals { 
+locals {
   common_tags = {
-        "environment" = var.environment
-        "terraform"   = true
-        "purpose"     = "DP-Dev"
-        "owner"       = "Prasanth Salla"
+    "terraform"   = true
+    "purpose"     = "DP-Dev"
+    "owner"       = "Prasanth Salla"
   }
 }
