@@ -8,6 +8,9 @@ module "redshift" {
 
   aws_redshift_cluster_database_name   = var.aws_redshift_cluster_database_name
   aws_redshift_cluster_master_username = var.aws_redshift_cluster_master_username
+  create_random_password               = true
+  aws_redshift_cluster_master_password = null
+
 
   redshift_subnet_group_name      = var.redshift_subnet_group_name # ignore only if new Cluster subnet group need to be created
   aws_redshift_cluster_kms_key_id = var.aws_redshift_cluster_kms_key_id

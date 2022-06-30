@@ -1,5 +1,3 @@
-environment = "dev"
-
 #Redshift
 aws_redshift_cluster_cluster_identifier                     = "sdp-cluster-dev"
 aws_redshift_cluster_node_type                              = "dc2.large"
