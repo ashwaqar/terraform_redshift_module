@@ -28,3 +28,27 @@ module "redshift" {
 
 
 }
+
+
+################################################################################
+# Secrets Manager
+################################################################################
+
+resource "aws_secretsmanager_secret" "redshift_credential" {
+  name = "${var.aws_redshift_cluster_cluster_identifier}-secret"
+}
+
+resource "aws_secretsmanager_secret_version" "redshift_credential_version" {
+  secret_id = aws_secretsmanager_secret.redshift_credential.id
+  secret_string = <<EOF
+  {
+    "username": "${module.redshift.redshift_cluster_master_username}",
+    "password": "${module.redshift.redshift_cluster_master_password}",
+    "engine": "redshift",
+    "host": "${module.redshift.redshift_cluster_endpoint}",
+    "port": "${module.redshift.redshift_cluster_port}",
+    "dbClusterIdentifier": "${module.redshift.redshift_cluster_identifier}",
+    "database": "${module.redshift.redshift_cluster_database_name}"
+  }
+  EOF
+}
