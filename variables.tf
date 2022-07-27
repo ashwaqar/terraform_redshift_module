@@ -33,7 +33,8 @@ variable "redshift_subnet_group_name" {
 }
 
 variable "aws_redshift_cluster_iam_roles" {
-  type = list(string)
+  type = string
+  default = ""
 }
 
 variable "aws_redshift_cluster_automated_snapshot_retention_period" {
