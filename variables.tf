@@ -40,3 +40,19 @@ variable "aws_redshift_cluster_iam_roles" {
 variable "aws_redshift_cluster_automated_snapshot_retention_period" {
   type = number
 }
+
+variable "aws_iam_role_cluster_assume_role_policy" {
+  description = "Who is going to use this role trusted entity"
+  type = any
+}
+
+variable "aws_redshift_iam_role_policy_policy" {
+  description = "policy document"
+  default = null
+}
+
+variable "aws_redshift_iam_role_policy_attachment_policy_arn" {
+  description = "The ARN of the policy that you want to apply"
+  type = any
+  default = ""
+}

@@ -19,47 +19,19 @@ module "redshift" {
   # subnets                                   = ["subnet-123456", "subnet-654321"] # Provide only if new Cluster subnet group need to be created
 
   # IAM Roles
-  create_iam_role                         = false # 'true' if you want to create new IAM role
-  role_policy_enabled                     = false # 'true' if you want to create new IAM role
   aws_redshift_cluster_iam_roles          = var.aws_redshift_cluster_iam_roles
+      # Below variables are required when creating new Role
+  create_iam_role                         = false # 'true' if you want to create new IAM role
+  role_policy_enabled                     = false # 'true' if you want to create new IAM role  
   aws_redshift_iam_role_name              = "cluster_dev"
   aws_redshift_iam_role_policy_name       = "cluster_dev"
-  aws_iam_role_cluster_assume_role_policy = data.aws_iam_policy_document.dev.json
-  aws_redshift_iam_role_policy_attachment_policy_arn = data.aws_iam_policy_document.iam-policy.json
+  aws_iam_role_cluster_assume_role_policy = var.aws_iam_role_cluster_assume_role_policy.1
+  aws_redshift_iam_role_policy_policy     = var.aws_redshift_iam_role_policy_policy.1
+  aws_redshift_iam_role_policy_attachment_policy_arn = var.aws_redshift_iam_role_policy_attachment_policy_arn
+
+
   # Snapshots and backups
   aws_redshift_cluster_automated_snapshot_retention_period = var.aws_redshift_cluster_automated_snapshot_retention_period
 
 
 }
-
-data "aws_iam_policy_document" "dev" {
-    
-    statement {
-      effect = "Allow"
-      actions = [ "sts:AssumeRole" ]
-      principals {
-        type = "Service"
-        identifiers = [
-                    "redshift.amazonaws.com",
-                    "lambda.amazonaws.com",
-                    "redshift-serverless.amazonaws.com",
-                    "glue.amazonaws.com",
-                    "rds.amazonaws.com",
-                    "sagemaker.amazonaws.com"
-                ]
-      }
-    }  
-}
-
-data "aws_iam_policy_document" "iam-policy" {
-      statement {
-        actions = [
-          "ssm:UpdateInstanceInformation",
-          "ssmmessages:CreateControlChannel",
-          "ssmmessages:CreateDataChannel",
-          "ssmmessages:OpenControlChannel",
-          "ssmmessages:OpenDataChannel"    ]
-        effect    = "Allow"
-        resources = ["*"]
-      }
-    }
