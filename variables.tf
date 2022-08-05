@@ -3,7 +3,7 @@ variable "environment" {
 }
 
 variable "vpc_id" {
-  type = string
+  type    = string
   default = "vpc-06f50169539b321a2"
 }
 
@@ -40,29 +40,29 @@ variable "aws_redshift_cluster_kms_key_id" {
 }
 
 variable "aws_redshift_cluster_automated_snapshot_retention_period" {
-  type = number
+  type    = number
   default = 1
 }
 
 variable "ingress" {
-    type = list(object({
-      from_port       = number
-      to_port         = number
-      protocol        = string
-      cidr_blocks     = list(string)
-      security_groups = list(string)
-      self            = bool
-    }))
-    default     = [
-        {
-          from_port   = 5439
-          to_port     = 5439
-          protocol    = "tcp"
-          cidr_blocks  = ["0.0.0.0/0"]
-          security_groups = []
-          self        = false
-        }
-    ]
+  type = list(object({
+    from_port       = number
+    to_port         = number
+    protocol        = string
+    cidr_blocks     = list(string)
+    security_groups = list(string)
+    self            = bool
+  }))
+  default = [
+    {
+      from_port       = 5439
+      to_port         = 5439
+      protocol        = "tcp"
+      cidr_blocks     = ["0.0.0.0/0"]
+      security_groups = []
+      self            = false
+    }
+  ]
 }
 
 variable "subnets" {
